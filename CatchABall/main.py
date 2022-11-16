@@ -2,33 +2,20 @@ import pygame
 from pygame.draw import *
 from random import randint
 
-pygame.init()
-
+from colours import *
 MAX_X, MAX_Y = 1200, 700
 BORDER = 100
 BULLSEYE = 5
+# DEFAULT_BALL = (MAX_X / 2, MAX_Y / 2, 50, (255, 255, 255))
 
+pygame.init()
 FPS = 2
 screen = pygame.display.set_mode((MAX_X, MAX_Y))
-
-RED = (255, 0, 0)
-BLUE = (0, 0, 255)
-YELLOW = (255, 255, 0)
-GREEN = (0, 255, 0)
-MAGENTA = (255, 0, 255)
-CYAN = (0, 255, 255)
-BLACK = (0, 0, 0)
-COLORS = [RED, BLUE, YELLOW, GREEN, MAGENTA, CYAN]
-
-# DEFAULT_BALL = (MAX_X / 2, MAX_Y / 2, 50, (255, 255, 255))
 
 count = 0
 
 
 def new_ball():
-    '''
-    рисует новый шарик
-    '''
     x = randint(BORDER, MAX_X - BORDER)
     y = randint(BORDER, MAX_Y - BORDER)
     r = randint(30, 70)
@@ -67,7 +54,7 @@ while not finished:
                 count += score
             else:
                 count = 0
-    circle(screen, current_ball[2], (current_ball[0], current_ball[1]), current_ball[2])
+    circle(screen, current_ball[3], (current_ball[0], current_ball[1]), current_ball[2])
     pygame.display.update()
     screen.fill(BLACK)
 
