@@ -21,7 +21,7 @@ pygame.display.update()
 clock = pygame.time.Clock()
 finished = False
 
-current_ball = Ball()
+current_ball = Ball(coords=(-1, -1), radius=0)
 score = 0
 font = pygame.font.SysFont("Calibri", 18)
 while not finished:

@@ -4,13 +4,8 @@ from random import randint
 
 
 class Ball:
-    x = MAX_X / 2
-    y = MAX_Y / 2
-    radius = DEFAULT_RADIUS
-    colour = DEFAULT_COLOUR
-
-    def __init__(self, coords=(MAX_X / 2, MAX_Y / 2), radius=DEFAULT_RADIUS,
-                 colour=DEFAULT_COLOUR, speed=(0, 0), value=1):
+    def __init__(self, coords=CENTER, radius=AVERAGE_RADIUS,
+                 colour=DEFAULT_COLOUR, speed=(0, 0), value=0):
         self.x, self.y = coords
         self.radius = radius
         self.colour = colour
@@ -19,9 +14,6 @@ class Ball:
 
     def render(self, screen):
         circle(screen, self.colour, (self.x, self.y), self.radius)
-
-    Vx = 0
-    Vy = 0
 
     def tick(self):
         self.x += self.Vx
@@ -37,7 +29,8 @@ class Ball:
     def randomize(self):
         self.x = randint(BORDER, MAX_X - BORDER)
         self.y = randint(BORDER, MAX_Y - BORDER)
-        self.radius = randint(DEFAULT_RADIUS - 20, DEFAULT_RADIUS + 20)
+        self.radius = randint(MIN_RADIUS, MAX_RADIUS)
         self.colour = PALETTE[randint(0, NUM_COLOURS - 1)]
         self.Vx = randint(-MAX_SPEED, MAX_SPEED)
         self.Vy = randint(-MAX_SPEED, MAX_SPEED)
+        self.value = 1
