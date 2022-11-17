@@ -10,12 +10,16 @@ pygame.init()
 screen = pygame.display.set_mode((MAX_X, MAX_Y))
 
 
-def click(event):
-    distance_to_center_of_ball = ((event.pos[0] - current_ball.x) ** 2
-                                  + (event.pos[1] - current_ball.y) ** 2) ** 0.5
-    add = current_ball.value
+def click(mouse_event):
+    distance_to_center_of_ball = ((mouse_event.pos[0] - current_ball.x) ** 2
+                                  + (mouse_event.pos[1] - current_ball.y) ** 2) ** 0.5
+    if distance_to_center_of_ball <= current_ball.radius:
+        scored = current_ball.value
+    else:
+        scored = 0
     current_ball.randomize()
-    return add
+    return scored
+
 
 pygame.display.update()
 clock = pygame.time.Clock()
@@ -38,7 +42,7 @@ while not finished:
                 score = 0
     current_ball.tick()
     current_ball.render(screen)
-    label = font.render("SCORE: " + str(score), 1, WHITE)
+    label = font.render("SCORE: " + str(score), True, WHITE)
     screen.blit(label, (50, 50))
 
     pygame.display.update()
