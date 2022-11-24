@@ -1,11 +1,10 @@
-from settings import *
+from settings import *  # settings imports colours as well
 from pygame.draw import circle
 from random import randint, uniform
 
 
 class Ball:
-    def __init__(self, coords=CENTER, radius=AVERAGE_RADIUS,
-                 colour=DEFAULT_COLOUR, speed=(0, 0)):
+    def __init__(self, coords=CENTER, radius=AVERAGE_RADIUS, colour=DEFAULT_COLOUR, speed=(0, 0)):
         self.x, self.y = coords
         self.radius = radius
         self.colour = colour
@@ -16,6 +15,9 @@ class Ball:
         self.value = int(v / step) + 1
         if self.value > 5:
             self.value = 5
+
+    # def args(self):
+    #     return (self.x, self.y), self.radius, self.colour, (self.Vx, self.Vy)
 
     def render(self, screen):
         circle(screen, self.colour, (self.x, self.y), self.radius)
@@ -39,3 +41,22 @@ class Ball:
         self.Vx = uniform(-MAX_SPEED, MAX_SPEED)
         self.Vy = uniform(-MAX_SPEED, MAX_SPEED)
         self.value = 1
+
+
+class Target(Ball):
+    def render(self, screen):
+        r = self.radius
+        count = 0
+        while r > 0:
+            circle(screen, WHITE if count % 2 == 0 else self.colour, (self.x, self.y), r)
+            r -= 5
+            # FIXME: only renders a white ball
+
+
+def new_object():
+    if randint(1, 10) == 10:
+        obj = Target()
+    else:
+        obj = Ball()
+    obj.randomize()
+    return obj
